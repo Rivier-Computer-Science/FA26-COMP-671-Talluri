@@ -11,7 +11,9 @@ The whole pipeline is in one notebook, [`plant_leaf_disease.ipynb`](plant_leaf_d
 
 ```
 plant_leaf_disease.ipynb   # full pipeline: data, split, training, evaluation, failure analysis
-requirements.txt           # pinned dependencies
+config.yaml                # all hyperparameters and settings (read by the notebook)
+requirements.txt           # pinned dependencies (pip)
+environment.yml            # conda environment (installs requirements.txt)
 data/splits/               # train.csv, val.csv, test.csv (the exact split used)
 results/                   # metrics (JSON/CSV), figures, test predictions, saved model weights (.pt)
 report/report.pdf          # written report
@@ -27,6 +29,8 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 ```
+
+Conda alternative: `conda env create -f environment.yml && conda activate plantleaf`.
 
 ## Data
 
@@ -56,8 +60,8 @@ jupyter nbconvert --to notebook --execute plant_leaf_disease.ipynb --inplace
 
 - Takes about 1.5 hours on an Apple-silicon laptop the first time, and about 2-3 minutes when the saved results in `results/` are reused.
 - A model that already has both a results file and weights in `results/` is loaded instead of retrained. To retrain everything, set
-  `FORCE = True` in the first code cell or delete the files in `results/`.
-- Quick sanity check (tiny subset, a few minutes, writes to `results_smoke/`):
+  `FORCE = True` in the first code cell or delete the files in `results/`. To change a hyperparameter, edit `config.yaml`, then retrain.
+- Quick sanity check (tiny subset, about a minute, writes to `results_smoke/`):
 
 ```bash
 SMOKE=1 jupyter nbconvert --to notebook --execute plant_leaf_disease.ipynb --output /tmp/smoke.ipynb
@@ -74,7 +78,7 @@ SMOKE=1 jupyter nbconvert --to notebook --execute plant_leaf_disease.ipynb --out
 | `resnet18_pretrained_aug` (main) | ResNet-18 | ImageNet | on |
 
 All neural models: 160x160 input, cross-entropy loss, Adam (lr 1e-3, weight decay 1e-4), cosine LR decay, batch size 64, 12 epochs,
-best epoch chosen by validation macro-F1, seed 42. All hyperparameters are in the notebook's config cell and in the report's Appendix Table A1.
+best epoch chosen by validation macro-F1, seed 42. All hyperparameters are in [`config.yaml`](config.yaml) (also in the report's Appendix Table A1).
 
 ## Results (test set)
 
