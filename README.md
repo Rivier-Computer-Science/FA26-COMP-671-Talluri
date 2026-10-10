@@ -37,7 +37,7 @@ Conda alternative: `conda env create -f environment.yml && conda activate plantl
 - **Source:** PlantVillage tomato subset (18,155 images, 10 classes) from Hugging Face
   [`mohanty/PlantVillage`](https://huggingface.co/datasets/mohanty/PlantVillage), license CC-BY-SA-3.0 (images are not redistributed here).
 - **Download:** automatic. The notebook downloads the ~2.2 GB archive into `data/raw/` on first run and extracts the tomato images.
-- **Split (seed 42), grouped by physical leaf so near-duplicate photos never cross splits:**
+- **Split (seed 42), grouped by physical leaf using the dataset's leaf-group information, so known photos of the same leaf stay in one split:**
 
 | Split | Images | How it was made |
 |---|---:|---|
@@ -45,8 +45,8 @@ Conda alternative: `conda env create -f environment.yml && conda activate plantl
 | val | 2,074 | ~15% of official train, grouped by leaf, stratified by class |
 | test | 3,639 | official PlantVillage test split (tomato only) |
 
-The notebook asserts that no leaf appears in two splits. Known limitation: about 37% of images have no entry in the dataset's leaf-grouping file
-(see Sections 2.3 and 6.5 of the report).
+The notebook asserts that no recorded leaf group appears in two splits. Known limitation: about 37% of images have no entry in the dataset's
+leaf-grouping file, so some residual near-duplicate leakage cannot be excluded (see Sections 2.3 and 6.5 of the report).
 
 ## How to run (training and evaluation)
 
