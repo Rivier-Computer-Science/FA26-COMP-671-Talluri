@@ -219,9 +219,9 @@ __marimo__/
 
 # Project-specific
 data/raw/
-results/*.pt
-!results/resnet18_pretrained_aug.pt
 results_smoke/
 data/cache/
+report/report.html
 *.pth
 .DS_Store
+tmp/
