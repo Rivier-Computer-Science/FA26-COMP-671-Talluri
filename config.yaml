@@ -1,5 +1,5 @@
 # Hyperparameters and settings read by plant_leaf_disease.ipynb (the notebook's SMOKE=1 mode overrides epochs and per_class).
-seed: 42             # data split, initialisation, shuffling, noise
+seed: 42             # data split, initialization, shuffling, noise
 img: 160             # images are resized from 256x256 to img x img
 epochs: 12           # maximum epochs for the neural models
 batch_size: 64
