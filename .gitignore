@@ -216,3 +216,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Project-specific
+data/raw/
+results_smoke/
+data/cache/
+report/report.html
+*.pth
+.DS_Store
+tmp/
